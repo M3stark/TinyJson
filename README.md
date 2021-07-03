@@ -1,6 +1,12 @@
 # TinyJSON
-Learning of Milo Yip's JSON project.
+A Tiny JSON project using Modern C++.
 
 
-Thanks for [Milo Yip](https://github.com/miloyip/json-tutorial)'s JSON project.
-Now this TinyJSON created by C++ version.
+
+
+
+*Code will release very soon.*
+
+
+
+**Ref:**  [Milo Yip](https://github.com/miloyip/json-tutorial)'s JSON project
