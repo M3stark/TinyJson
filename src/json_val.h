@@ -38,6 +38,9 @@ public:
     ~JsonValue() = default;
 
 public:
+    /**
+     * 数据类型接口
+     */
     JsonType getType() const noexcept;
 
 public:
@@ -55,7 +58,7 @@ public:
     Json& operator[] (const std::string&);
     const Json& operator[] (const std::string&) const;
 
-private:
+public:
     /**
      * 转换函数：
      * JsonValue -> null, bool, double, etc.

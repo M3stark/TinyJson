@@ -86,7 +86,7 @@ public:
     Json(const Json&);
     Json& operator= (const Json&) noexcept;     // noexcept -> std: c++11
     Json(Json&&) noexcept;
-    Json& operator= (const Json&&) noexcept;
+    Json& operator= (Json&&) noexcept;
 
     /**
      * Notes:
@@ -112,7 +112,7 @@ public:
     JsonType getType() const noexcept;
     bool isNull() const noexcept;
     bool isBool() const noexcept;
-    bool isnumber() const noexcept;
+    bool isNumber() const noexcept;
     bool isString() const noexcept;
     bool isArray() const noexcept;
     bool isObject() const noexcept;

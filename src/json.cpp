@@ -86,4 +86,88 @@ Json& Json::operator= (const Json& rhs) noexcept {
     return *this;
 }
 
+/**
+ * 移动构造函数
+ */
+Json::Json(Json&& rhs) noexcept = default;
+
+Json& Json::operator=(Json&& rhs) noexcept = default;
+
+/**
+ * parse()      -> 解析接口
+ * serialize()  -> 序列化接口
+ * errMsg       -> 存储异常消息
+ */
+Json Json::parse(const std::string& content, std::string& errMsg) noexcept {
+    try {
+        Paser p(content);
+        return p.parse();
+    }
+    catch (JsonExcept& e) {
+        errMsg = e.what();
+        return Json(nullptr);
+    }
+}
+
+std::string Json::serialize() const noexcept {
+    switch (_jsonVal->getType())
+    {
+    case JsonType::m_nullptr:{
+        /* code */
+        return "null";
+    }
+    case JsonType::m_bool:{
+        /* code */
+        return _jsonVal->toBool() ? "true" : "false";
+    }
+    case JsonType::m_number:{
+        /* code */
+        char buf[32];
+        snprintf(buf, sizeof(buf), "%.17g", _jsonVal->toDouble());
+        break;
+    }
+    case JsonType::m_string:{
+        /* code */
+        return SerializeString();
+        break;
+    }
+    case JsonType::m_array:{
+        /* code */
+        return SerializeArray();
+        break;
+    }
+    default:
+        return SerializeObject();
+    }
+}
+
+JsonType Json::getType() const noexcept {
+    return _jsonVal->getType();
+}
+
+bool Json::isNull() const noexcept {
+    return getType() == JsonType::m_nullptr;
+}
+
+bool Json::isBool() const noexcept {
+    return getType() == JsonType::m_bool;
+}
+
+bool Json::isNumber() const noexcept {
+    return getType() == JsonType::m_number;
+}
+
+bool Json::isString() const noexcept {
+    return getType() == JsonType::m_string;
+}
+
+bool Json::isArray() const noexcept {
+    return getType() == JsonType::m_array;
+}
+
+bool Json::isObject() const noexcept {
+    return getType() == JsonType::m_obj;
+}
+
+
 };

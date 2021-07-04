@@ -1,11 +1,7 @@
 # TinyJSON
-A Tiny JSON project using Modern C++.
+**简单的 *Json* 解释器，使用了 Modern C++ (C++11 / C++ 17 新标准) 和 [Google C++ 风格指南](https://zh-google-styleguide.readthedocs.io/en/latest/google-cpp-styleguide/).**
 
 
-
-
-
-*Code will release very soon.*
 
 
 
