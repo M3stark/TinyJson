@@ -8,51 +8,55 @@
 
 namespace zzjson {  // ------------------- namespace zzjson
 
-constexpr bool is1to9(char ch) {
+constexpr bool ISDIGIT1TO9(char ch) {
     return ch >= '1' && ch <= '9';
 }
 
-constexpr bool is0to9(char ch) {
+constexpr bool ISDIGIT(char ch) {
     return ch >= '0' && ch <= '9';
 }
 
-class Paser {
+class Parser {
 public:
     /**
      * 构造函数
      */
-    explicit Paser(const char* cstr) noexcept : _start(cstr), _cur(cstr) {}
-    explicit Paser(const std::string& content) noexcept : _start(content.c_str()),
-                                                          _cur(content.c_str()) {}
+    explicit Parser(const char* cstr) noexcept : _start(cstr), _cur(cstr) {}
+
+    explicit Parser(const std::string& content) noexcept
+                         : _start(content.c_str()), _cur(content.c_str()) {}
 
 public:
     /**
      * 令其不可拷贝
      */
-    Paser(const Paser&) = delete;
-    Paser& operator=(const Paser&) = delete;
+    Parser(const Parser&) = delete;
+    Parser& operator=(const Parser&) = delete;
 
 private:
     /**
      * 封装处理的辅助函数函数
      */
-    void PaserSpace() noexcept;
-    unsigned Paser4Hex();
+    void ParserSpace() noexcept;
+    unsigned Parser4Hex();
     std::string EncoddeUTF8(unsigned u) noexcept;
-    std::string PaserRowString();
+    std::string ParserRowString();
 
+    /**
+     * throw 错误的位置
+     */
     void error(const std::string& msg) const;
 
 private:
     /**
      * 封装处理函数
      */
-    Json PaserValue();
-    Json PaserLiteral(const std::string& literal);
-    Json PaserNumber();
-    Json PaserString();
-    Json PaserArray();
-    Json PaserObj();
+    Json ParserValue();
+    Json ParserLiteral(const std::string& literal);
+    Json ParserNumber();
+    Json ParserString();
+    Json ParserArray();
+    Json ParserObj();
 
 public:
     /**

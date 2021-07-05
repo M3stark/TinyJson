@@ -19,10 +19,14 @@ enum class JsonType {
     m_obj
 };
 
+/**
+ * 前置声明
+ */
 class JsonValue;
 
 class Json final {
 public:
+    // 声明变量的别名
     using _array  = std::vector<Json>;
     using _obj    = std::unordered_map<std::string, Json>;
 
@@ -30,11 +34,10 @@ public:
     /**
      * 构造函数
      */
-    Json() : Json(nullptr) {};
+    Json() : Json(nullptr){};
     Json(std::nullptr_t);
-
     Json(bool);
-    Json(int val) : Json(1.0 * val) {};
+    Json(int val) : Json(1.0 * val) {};         // 转换为double
     Json(double);
     Json(const char* cstr) : Json(std::string(cstr)) {};
     Json(const std::string&);
@@ -44,6 +47,7 @@ public:
     Json(const _obj&);
     Json(_obj&&);
 
+    // 防止 Json(*) 意外产生 bool
     Json(void*) = delete;
 
 public:
@@ -60,8 +64,8 @@ public:
                 std::is_constructible<
                     Json, decltype(std::declval<M>().begin()->second)>::value,
             int>::type = 0>
-    Json(const M& m) : Json(_obj(m.begin(), m.end())) {}
-
+    Json(const M& m) : Json(_object(m.begin(), m.end())) {}
+    
     /**
      * 隐式构造函数
      * set / unordered_set, etc.
@@ -84,8 +88,9 @@ public:
      * 拷贝构造 / 拷贝赋值
      */
     Json(const Json&);
-    Json& operator= (const Json&) noexcept;     // noexcept -> std: c++11
     Json(Json&&) noexcept;
+
+    Json& operator= (const Json&) noexcept;     // noexcept -> std: c++11
     Json& operator= (Json&&) noexcept;
 
     /**
@@ -110,11 +115,13 @@ public:
      * 类型接口
      */
     JsonType getType() const noexcept;
-    bool isNull() const noexcept;
-    bool isBool() const noexcept;
+
+    // 判断类型
+    bool isNull()   const noexcept;
+    bool isBool()   const noexcept;
     bool isNumber() const noexcept;
     bool isString() const noexcept;
-    bool isArray() const noexcept;
+    bool isArray()  const noexcept;
     bool isObject() const noexcept;
 
 public:
@@ -129,19 +136,22 @@ public:
 
 public:
     /**
-     * 重载 -> operator[]
+     * 访问 array / obj 的接口
      */
     size_t size() const;
-    Json& operator[] (size_t);              // operator[] for array
-    const Json& operator[] (size_t) const;
-
-    Json& operator[] (const std::string&);  // operator[] for obj
-    const Json& operator[] (const std::string&) const;
+    Json& operator[] (size_t);   
+    const Json& operator[](size_t) const;
+    Json& operator[](const std::string&);  
+    const Json& operator[](const std::string&) const;
 
 private:
     void swap(Json&) noexcept;
+
+    /**
+     * 辅助函数
+     */
     std::string SerializeString() const noexcept;
-    std::string SerializeArray() const noexcept;
+    std::string SerializeArray()  const noexcept;
     std::string SerializeObject() const noexcept;
 
 private:
@@ -159,8 +169,8 @@ std::ostream& operator<<(std::ostream& os, const Json& json) {
 bool operator==(const Json&, const Json&);
 
 inline
-bool operator!=(const Json& old_val, const Json& new_val) {
-    return !(old_val == new_val);
+bool operator!=(const Json& lhs, const Json& rhs) {
+    return !(lhs == rhs);
 }
 
 };  // ------------------- namespace zzjson

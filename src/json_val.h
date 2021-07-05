@@ -16,20 +16,20 @@ public:
      * 
      * tips: explicit -> 禁用只有一个参数的构造函数的隐式调用
      */
-    explicit JsonValue(std::nullptr_t) : _val(nullptr) {}
-    explicit JsonValue(bool val) : _val(val) {}
-    explicit JsonValue(double val) : _val(val) {}
-    explicit JsonValue(const std::string val) : _val(val) {}
-    explicit JsonValue(const Json::_array val) : _val(val) {}
-    explicit JsonValue(const Json::_obj val) : _val(val) {}
+    explicit JsonValue(std::nullptr_t)          : _val(nullptr) {}
+    explicit JsonValue(bool val)                : _val(val) {}
+    explicit JsonValue(double val)              : _val(val) {}
+    explicit JsonValue(const std::string& val)  : _val(val) {}
+    explicit JsonValue(const Json::_array& val) : _val(val) {}
+    explicit JsonValue(const Json::_obj& val)   : _val(val) {}
 
 public:
     /**
      * 移动构造函数
      */
-    explicit JsonValue(std::string && val) : _val(std::move(val)) {}
-    explicit JsonValue(Json::_array && val) : _val(std::move(val)) {}
-    explicit JsonValue(Json::_obj && val) : _val(std::move(val)) {}
+    explicit JsonValue(std::string  && val)      : _val(std::move(val)) {}
+    explicit JsonValue(Json::_array && val)      : _val(std::move(val)) {}
+    explicit JsonValue(Json::_obj   && val)      : _val(std::move(val)) {}
 
 public:
     /**
@@ -73,7 +73,7 @@ public:
 private:
     std::variant<std::nullptr_t, bool, double, 
                  std::string, Json::_array, Json::_obj>
-    _val;
+        _val;
 
     /**
      * Notes:
