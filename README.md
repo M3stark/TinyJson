@@ -170,19 +170,7 @@ int main(int argc,char**argv){
 ```
 
 得到以下结果表示安装成功.
-
-```c++
-[==========] Running 1 test from 1 test suite.
-[----------] Global test environment set-up.
-[----------] 1 test from testCase
-[ RUN      ] testCase.test0
-[       OK ] testCase.test0 (0 ms)
-[----------] 1 test from testCase (0 ms total)
-
-[----------] Global test environment tear-down
-[==========] 1 test from 1 test suite ran. (0 ms total)
-[  PASSED  ] 1 test.
-```
+![install_gtest](https://github.com/M3stark/TinyJson/blob/main/source/install_gtest.png)
 
 
 
