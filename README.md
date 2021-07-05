@@ -7,10 +7,10 @@
 
 **TinyJSON 支持的 Json值包括：**
 
-- null(std::nullptr_t)、
-- bool、
-- number（int / double）、
-- string(std::string)、
+- null(std::nullptr_t)
+- bool
+- number（int / double）
+- string(std::string)
 - array(std::vector) 
 - object(std::unordered_map)
 
@@ -94,7 +94,7 @@ if (std::holds_alternative<std::nullptr_t>(_val)) {
         return JsonType::m_nullptr;
 ```
 
-
+- Google Test 框架测试
 
 
 
